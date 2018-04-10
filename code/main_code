@@ -1,0 +1,209 @@
+## Using this tutorial 
+## https://code.tutsplus.com/tutorials/how-to-build-a-python-bot-that-can-play-web-games--active-11117
+## Game: https://www.miniclip.com/games/sushi-go-round/en/
+
+"""
+
+All coordinates assume a screen resolution size of 2560 * 1440, and Firefox maximized
+No scrolling
+x_pad = 788
+y_pad = 345
+Play area = x_pad+1, y_pad+1, 1424, 808
+"""
+
+# Globals
+# ------------
+
+x_pad = 788
+y_pad = 328
+
+from PIL import ImageGrab
+import os, time
+import win32api, win32con
+
+def screenGrab():
+    box = (x_pad + 1, y_pad + 1, x_pad + 636, y_pad + 480)
+    im = ImageGrab.grab(box)
+    im.save(os.getcwd() + '\\full_snap__' + str(int(time.time())) + '.png', 'PNG')
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()
+
+def leftClick():
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
+    time.sleep(.1)
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
+    print("Click.")
+
+def leftDown():
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
+    time.sleep(.1)
+    print ("left Down")
+
+def leftUp():
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
+    time.sleep(.1)
+    print("left release")
+
+def mousePos(cord):
+    win32api.SetCursorPos((x_pad + cord[0], y_pad + cord[1]))
+
+def get_cords():
+    x,y = win32api.GetCursorPos()
+    x = x - x_pad
+    y = y - y_pad
+    print (x,y)
+
+def startGame():
+    #location of first menu
+    mousePos((321, 112))
+    leftClick()
+    time.sleep(.1)
+
+    #location of second menu
+    mousePos((312, 292))
+    leftClick()
+    time.sleep(.1)
+
+    #location of third menu
+    mousePos((578, 354))
+    leftClick()
+    time.sleep(.1)
+
+    #location of fourth menu
+    mousePos((311,268))
+    leftClick()
+    time.sleep(.1)
+
+# startGame()
+
+class Cord:
+
+    f_shrimp = (46,231)
+    f_rice = (90,231)
+    f_nori = (44,276)
+    f_roe = (79, 280)
+    f_salmon = (47, 332)
+    f_unagi = (101, 334)
+
+#--------------------
+
+    phone = (572, 257)
+
+    menu_toppings = (527, 170)
+
+    t_shrimp = (487, 125)
+    t_nori = (572, 113)
+    t_roe = (494, 167)
+    t_salmon = (571, 178)
+    t_unagi = (489, 225)
+    t_exit = (590, 231)
+
+    delivery_norm = (492, 195)
+
+    menu_rice = (538, 195)
+    buy_rice = (534, 176)
+
+    menu_sake = (536, 210)
+    buy_sake = (533, 170)
+
+def clear_tables():
+    mousePos((90, 107))
+    leftClick()
+
+    mousePos((191, 103))
+    leftClick()
+
+    mousePos((283,106))
+    leftClick()
+
+    mousePos((383, 104))
+    leftClick()
+
+    mousePos((495, 108))
+    leftClick()
+
+    mousePos((602, 104))
+    leftClick()
+    time.sleep(.1)
+
+"""
+
+Recipes:
+
+    onigiri
+        2 rice, 1nori
+    
+    caliroll:
+        1 rice, 1 nori, 1 roe
+        
+    gunkan:
+        1 rice, 1 nori, 2 roe
+        
+    
+"""
+def makeFood(food):
+    if food == "caliroll":
+        print ("Making a caliroll")
+        mousePos(Cord.f_rice)
+        leftClick()
+        time.sleep(.05)
+        mousePos(Cord.f_nori)
+        leftClick()
+        time.sleep(.05)
+        mousePos(Cord.f_roe)
+        leftClick()
+        time.sleep(.1)
+        foldMat()
+        time.sleep(1.5)
+
+    elif food == "onigiri":
+        mousePos(Cord.f_rice)
+        leftClick()
+        time.sleep(.05)
+        mousePos(Cord.f_rice)
+        leftClick()
+        time.sleep(.05)
+        mousePos(Cord.f_nori)
+        leftClick()
+        time.sleep(.05)
+        foldMat()
+        time.sleep(1.5)
+
+    elif food == "gunkan":
+        mousePos(Cord.f_rice)
+        leftClick()
+        time.sleep(.05)
+        mousePos(Cord.f_nori)
+        leftClick()
+        time.sleep(.05)
+        mousePos(Cord.f_roe)
+        leftClick()
+        time.sleep(.05)
+        mousePos(Cord.f_roe)
+        leftClick()
+        time.sleep(.05)
+        foldMat()
+        time.sleep(1.5)
+
+
+def foldMat():
+    mousePos((Cord.f_rice[0]+40, Cord.f_rice[1]))
+    leftClick()
+    time.sleep(0.1)
+
+"""
+
+Plate Cords:
+
+    90, 107
+    191, 103
+    283, 106
+    383, 104
+    495, 108
+    602, 104
+
+"""
