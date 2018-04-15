@@ -4,6 +4,20 @@ import time
 import win32api, win32con
 from numpy import *
 
+## Using this tutorial
+## https://code.tutsplus.com/tutorials/how-to-build-a-python-bot-that-can-play-web-games--active-11117
+## Game: https://www.miniclip.com/games/sushi-go-round/en/
+
+"""
+Bugs:
+- Sometimes doesnt order food (Roe)
+
+Required Features:
+- Build Exit from Loop
+
+"""
+
+
 """
 
 All coordinates assume a screen resolution size of 2560 * 1440, and Firefox maximized
