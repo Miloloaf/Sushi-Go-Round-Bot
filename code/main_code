@@ -1,3 +1,9 @@
+from PIL import ImageGrab, ImageOps
+import os
+import time
+import win32api, win32con
+from numpy import *
+
 """
 
 All coordinates assume a screen resolution size of 2560 * 1440, and Firefox maximized
@@ -12,11 +18,8 @@ Play area = x_pad+1, y_pad+1, 1424, 808
 
 x_pad = 788
 y_pad = 225 #328
+# os.chdir(os.path.dirname(__file__))
 
-from PIL import ImageGrab, ImageOps
-import os, time
-import win32api, win32con
-from numpy import *
 
 def screenGrab():
     box = (x_pad + 1, y_pad + 1, x_pad + 636, y_pad + 480)
@@ -34,11 +37,14 @@ def grab():
     print(a)
     return a
 
+
 def main():
     pass
 
+
 if __name__ == '__main__':
     main()
+
 
 def leftClick():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
@@ -46,18 +52,22 @@ def leftClick():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
     print("Click.")
 
+
 def leftDown():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
     time.sleep(.1)
     print ("left Down")
+
 
 def leftUp():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
     time.sleep(.1)
     print("left release")
 
+
 def mousePos(cord):
     win32api.SetCursorPos((x_pad + cord[0], y_pad + cord[1]))
+
 
 def get_cords():
     x,y = win32api.GetCursorPos()
@@ -65,76 +75,79 @@ def get_cords():
     y = y - y_pad
     print (x,y)
 
+
 def startGame():
     #location of first menu
-    mousePos((321, 112))
+    mousePos((321, 198))
     leftClick()
-    time.sleep(.1)
+    time.sleep(.2)
 
     #location of second menu
-    mousePos((312, 292))
+    mousePos((312, 392))
     leftClick()
-    time.sleep(.1)
+    time.sleep(.2)
 
     #location of third menu
-    mousePos((578, 354))
+    mousePos((578, 454))
     leftClick()
-    time.sleep(.1)
+    time.sleep(.2)
 
     #location of fourth menu
-    mousePos((311,268))
+    mousePos((311,368))
     leftClick()
-    time.sleep(.1)
+    time.sleep(.2)
 
 # startGame()
 
+
 class Cord:
 
-    f_shrimp = (46,231)
-    f_rice = (90,231)
-    f_nori = (44,276)
-    f_roe = (79, 280)
-    f_salmon = (47, 332)
-    f_unagi = (101, 334)
+    f_shrimp = (46,331)
+    f_rice = (90,331)
+    f_nori = (44,376)
+    f_roe = (79, 380)
+    f_salmon = (47, 432)
+    f_unagi = (101, 434)
 
-#--------------------
+# --------------------
 
-    phone = (572, 257)
+    phone = (572, 357)
 
-    menu_toppings = (527, 170)
+    menu_toppings = (527, 270)
 
-    t_shrimp = (487, 125)
-    t_nori = (572, 113)
-    t_roe = (494, 167)
-    t_salmon = (571, 178)
-    t_unagi = (489, 225)
-    t_exit = (590, 231)
+    t_shrimp = (487, 225)
+    t_unagi = (572, 213)
+    t_nori = (494, 267)
+    t_roe = (571, 278)
+    t_salmon = (489, 325)
+    t_exit = (590, 331)
 
-    delivery_norm = (492, 195)
+    delivery_norm = (492, 295)
 
-    menu_rice = (538, 195)
-    buy_rice = (534, 176)
+    menu_rice = (538, 295)
+    buy_rice = (534, 276)
 
-    menu_sake = (536, 210)
-    buy_sake = (533, 170)
+    menu_sake = (536, 310)
+    buy_sake = (533, 270)
+
 
 def clear_tables():
-    mousePos((90, 107))
+    mousePos((90, 207))
     leftClick()
 
-    mousePos((191, 103))
+    mousePos((191, 203))
     leftClick()
 
-    mousePos((283,106))
+    mousePos((283,206))
     leftClick()
 
-    mousePos((383, 104))
+    mousePos((383, 204))
     leftClick()
 
-    mousePos((495, 108))
+    mousePos((495, 208))
     leftClick()
 
-    mousePos((590, 104))
+    mousePos((590, 204))
     leftClick()
     time.sleep(.1)
 
@@ -153,6 +166,8 @@ Recipes:
         
     
 """
+
+
 def makeFood(food):
     if food == "caliroll":
         print ("Making a caliroll")
@@ -211,6 +226,7 @@ def foldMat():
     leftClick()
     time.sleep(0.1)
 
+
 def buyFood(food):
 
     if food == "rice":
@@ -228,7 +244,7 @@ def buyFood(food):
             leftClick()
             mousePos(Cord.delivery_norm)
             foodOnHand["rice"] += 10
-            time.sleep(.1)
+            time.sleep(.2)
             leftClick()
             time.sleep(2.5)
         else:
@@ -253,7 +269,7 @@ def buyFood(food):
             leftClick()
             mousePos(Cord.delivery_norm)
             foodOnHand["nori"] += 10
-            time.sleep(.1)
+            time.sleep(.2)
             leftClick()
             time.sleep(2.5)
         else:
@@ -278,7 +294,7 @@ def buyFood(food):
             leftClick()
             mousePos(Cord.delivery_norm)
             foodOnHand["roe"] += 10
-            time.sleep(.1)
+            time.sleep(.2)
             leftClick()
             time.sleep(2.5)
         else:
@@ -288,27 +304,25 @@ def buyFood(food):
             time.sleep(1)
             buyFood(food)
 
+    # mousePos(Cord.phone)
+    #
+    # mousePos(Cord.menu_toppings)
+    #
+    # mousePos(Cord.t_shrimp)
+    # mousePos(Cord.t_nori)
+    # mousePos(Cord.t_roe)
+    # mousePos(Cord.t_salmon)
+    # mousePos(Cord.t_unagi)
+    # mousePos(Cord.t_exit)
+    #
+    # mousePos(Cord.menu_rice)
+    # mousePos(Cord.buy_rice)
+    #
+    # mousePos(Cord.menu_sake)
+    # mousePos(Cord.buy_sake)
+    #
+    # mousePos(Cord.delivery_norm)
 
-
-
-    mousePos(Cord.phone)
-
-    mousePos(Cord.menu_toppings)
-
-    mousePos(Cord.t_shrimp)
-    mousePos(Cord.t_nori)
-    mousePos(Cord.t_roe)
-    mousePos(Cord.t_salmon)
-    mousePos(Cord.t_unagi)
-    mousePos(Cord.t_exit)
-
-    mousePos(Cord.menu_rice)
-    mousePos(Cord.buy_rice)
-
-    mousePos(Cord.menu_sake)
-    mousePos(Cord.buy_sake)
-
-    mousePos(Cord.delivery_norm)
 
 foodOnHand = {'shrimp':5,
               'rice':10,
@@ -317,22 +331,26 @@ foodOnHand = {'shrimp':5,
               'salmon':5,
               'unagi':5}
 
+
 def checkFood():
     for i,j in foodOnHand.items():
-        if i=="nori" or i== "rice" or i=="roe":
+        if i == "nori" or i == "rice" or i == "roe":
             if j <= 4:
                 print("%s is low and needs to be replenished" % i)
                 buyFood(i)
+
 
 def get_seat_one():
     box = (x_pad + 22, y_pad + 62, x_pad+  22 + 62, y_pad + 62 + 14)
     im = ImageOps.grayscale(ImageGrab.grab(box))
     a = array(im.getcolors())
     a = a.sum()
-    print (a)
+    print(a)
     im.save(os.getcwd()+r"\seat_one__"+str(int(time.time()))+".png", "PNG")
-    im.show()
+    # im.save("seat_one__" + str(int(time.time())) + ".png", "PNG")
+    # im.show()
     return a
+
 
 def get_seat_two():
     box = (x_pad + 123, y_pad + 62, x_pad + 123 + 62, y_pad + 62 + 14)
@@ -341,43 +359,53 @@ def get_seat_two():
     a = a.sum()
     print(a)
     im.save(os.getcwd()+r"\seat_two__"+str(time.time())+".png","PNG")
+    # im.show()
     return a
+
 
 def get_seat_three():
     box = (x_pad + 224, y_pad + 62, x_pad + 224 + 62, y_pad + 62 + 14)
     im = ImageOps.grayscale(ImageGrab.grab(box))
     a = array(im.getcolors())
     a = a.sum()
+    # im.show()
     print(a)
-    im.save(os.getcwd()+r"\seat_three__"+str(time.time())+".png","PNG")
+    im.save(os.getcwd()+r"\seat_three__"+str(time.time())+".png", "PNG")
     return a
 
+
 def get_seat_four():
-    box = (x_pad + 325,y_pad + 62,x_pad + 325 + 62, y_pad + 62 + 14)
+    box = (x_pad + 325,y_pad + 62, x_pad + 325 + 62, y_pad + 62 + 14)
     im = ImageOps.grayscale(ImageGrab.grab(box))
     a = array(im.getcolors())
     a = a.sum()
     print(a)
     im.save(os.getcwd()+r"\seat_four__"+str(time.time())+".png","PNG")
+    # im.show()
     return a
 
+
 def get_seat_five():
-    box = (x_pad + 426, y_pad + 62,x_pad + 426 + 62, y_pad + 62 + 14)
+    box = (x_pad + 426, y_pad + 62, x_pad + 426 + 62, y_pad + 62 + 14)
     im = ImageOps.grayscale(ImageGrab.grab(box))
     a = array(im.getcolors())
     a = a.sum()
     print(a)
     im.save(os.getcwd()+r"\seat_five__"+str(time.time())+".png","PNG")
+    # im.show()
     return a
 
+
 def get_seat_six():
-    box = (x_pad + 527, y_pad + 62,x_pad + 527 + 62, y_pad + 62+14)
+    box = (x_pad + 527, y_pad + 62, x_pad + 527 + 62, y_pad + 62 + 14)
     im = ImageOps.grayscale(ImageGrab.grab(box))
     a = array(im.getcolors())
     a = a.sum()
     print(a)
-    im.save(os.getcwd()+r"\seat_six__"+str(time.time())+".png", "PNG")
+    im.save(os.getcwd() + r"\seat_six__" + str(time.time()) + ".png", "PNG")
+    # im.show()
     return a
+
 
 def get_all_seats():
     get_seat_one()
@@ -386,6 +414,124 @@ def get_all_seats():
     get_seat_four()
     get_seat_five()
     get_seat_six()
+
+
+sushiTypes = {2537: "gunkan",
+              3003: "caliroll",
+              2530: "onigiri"}
+
+
+class blank:
+    seat_1 = 6448
+    seat_2 = 5721
+    seat_3 = 10401
+    seat_4 = 10473
+    seat_5 = 6820
+    seat_6 = 8781
+
+
+def check_bubs():
+
+    checkFood()
+    s1 = get_seat_one()
+    if s1 != blank.seat_1:
+        if s1 in sushiTypes:
+            print("table 1 is occupied and needs %s" % sushiTypes[s1])
+            makeFood(sushiTypes[s1])
+        else:
+            print("sushi not found!\n sushiType = %i" % s1)
+
+    else:
+        print("Table 1 unoccupied")
+
+    clear_tables()
+    checkFood()
+    s2 = get_seat_two()
+    if s2 != blank.seat_2:
+        if s2 in sushiTypes:
+            print ("table 2 is occupied and needs %s" % sushiTypes[s2])
+            makeFood(sushiTypes[s2])
+        else:
+            print("sushi not found!\n sushiType = %i" % s2)
+
+    else:
+        print("Table 2 unoccupied")
+
+    checkFood()
+    s3 = get_seat_three()
+    if s3 != blank.seat_3:
+        if s3 in sushiTypes:
+            print("table 3 is occupied and needs %s" % sushiTypes[s3])
+            makeFood(sushiTypes[s3])
+        else:
+            print("sushi not found!\n sushiType = %i" % s3)
+
+    else:
+        print("Table 3 unoccupied")
+
+    checkFood()
+    s4 = get_seat_four()
+    if s4 != blank.seat_4:
+        if s4 in sushiTypes:
+            print("table 4 is occupied and needs %s" % sushiTypes[s4])
+            makeFood(sushiTypes[s4])
+        else:
+            print("sushi not found!\n sushiTypes = %i" % s4)
+
+    else:
+        print("Table 4 unoccupied")
+
+    clear_tables()
+    checkFood()
+    s5 = get_seat_five()
+    if s5 != blank.seat_5:
+        if s5 in sushiTypes:
+            print("table 5 is occupied and needs %s" % sushiTypes[s5])
+            makeFood(sushiTypes[s5])
+        else:
+            print("sushi not found! \n sushiTypes = %i" % s5)
+
+    else:
+        print("Table 5 unoccupied")
+
+    checkFood()
+    s6 = get_seat_six()
+    if s6 != blank.seat_6:
+        if s6 in sushiTypes:
+            print("table 6 is occupied and needs %s" % sushiTypes[s6])
+            makeFood(sushiTypes[s6])
+        else:
+            print("sushi not found! \n sushiTypes = %i" % s6)
+
+    else:
+        print("Table 6 unoccupied")
+
+    clear_tables()
+
+
+def main():
+    startGame()
+    try:
+        while True:
+            check_bubs()
+    except KeyboardInterrupt:
+        print("NOOOOO")
+        pass
+
+"""
+get_all_seats()
+2537 - Gunkan
+3003 - Cali
+2530 - Onigiri
+
+get_all_seats() - Blank
+6448
+5721
+10401
+10473
+6820
+8781
+"""
 
 """
 im.getpixel(Cord.t_nori)
